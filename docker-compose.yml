@@ -17,6 +17,8 @@ services:
       - 9090
     links:
       - fastly-exporter:fastly-exporter
+      - cloudflare-exporter:cloudflare-exporter
+      - ns1-exporter:ns1-exporter
     ports:
       - 9090:9090
   
@@ -42,3 +44,21 @@ services:
     ports:
      - 8080:8080
 
+  cloudflare-exporter:
+    image: wehkamp/prometheus-cloudflare-exporter:1.1.1
+    environment:
+      - ZONE=globalsign.com
+      - AUTH_TOKEN=${CLOUDFLARE_API_TOKEN}
+    expose:
+      - 9199
+    ports:
+      - 9199:9199
+
+  ns1-exporter:
+    image: laurence-pawling/prometheus-ns1-exporter:1.1.1
+    environment:
+      - AUTH_TOKEN=${NS1_API_TOKEN}
+    expose:
+      - 9198
+    ports:
+      - 9198:9198

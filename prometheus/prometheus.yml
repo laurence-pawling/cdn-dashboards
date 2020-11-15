@@ -42,3 +42,13 @@ scrape_configs:
       regex: '^(\S+)'
       replacement: '$1'
       target_label: inventory_code
+
+  - job_name: 'cloudflare-exporter'
+    metrics_path: '/metrics'
+    static_configs:
+    - targets: ['cloudflare-exporter:9199']
+
+  - job_name: 'ns1-exporter'
+    metrics_path: '/metrics'
+    static_configs:
+    - targets: ['ns1-exporter:9198']
